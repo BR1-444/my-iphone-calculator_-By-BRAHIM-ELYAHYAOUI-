@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آلة حاسبة - آيفون</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Helvetica Neue', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #333;
+            border-radius: 20px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .display {
+            background-color: #1c1c1c;
+            color: #fff;
+            font-size: 40px;
+            text-align: right;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            height: 60px;
+            overflow: hidden;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .button {
+            background-color: #505050;
+            color: white;
+            font-size: 24px;
+            border: none;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .button:active {
+            background-color: #6f6f6f;
+        }
+
+        .button.operator {
+            background-color: #f29c11;
+            color: white;
+        }
+
+        .button.operator:active {
+            background-color: #f08c00;
+        }
+
+        .button.equal {
+            background-color: #3d9c2e;
+            color: white;
+            grid-column: span 2;
+        }
+
+        .button.equal:active {
+            background-color: #369025;
+        }
+
+        .button.clear {
+            background-color: #d32f2f;
+            color: white;
+        }
+
+        .button.clear:active {
+            background-color: #b71c1c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <div id="display" class="display">0</div>
+    <div class="buttons">
+        <button class="button clear" onclick="clearDisplay()">C</button>
+        <button class="button operator" onclick="appendToDisplay('/')">/</button>
+        <button class="button operator" onclick="appendToDisplay('*')">*</button>
+        <button class="button operator" onclick="appendToDisplay('-')">-</button>
+
+        <button class="button" onclick="appendToDisplay('7')">7</button>
+        <button class="button" onclick="appendToDisplay('8')">8</button>
+        <button class="button" onclick="appendToDisplay('9')">9</button>
+        <button class="button operator" onclick="appendToDisplay('+')">+</button>
+
+        <button class="button" onclick="appendToDisplay('4')">4</button>
+        <button class="button" onclick="appendToDisplay('5')">5</button>
+        <button class="button" onclick="appendToDisplay('6')">6</button>
+        <button class="button equal" onclick="calculate()">=</button>
+
+        <button class="button" onclick="appendToDisplay('1')">1</button>
+        <button class="button" onclick="appendToDisplay('2')">2</button>
+        <button class="button" onclick="appendToDisplay('3')">3</button>
+        <button class="button" onclick="appendToDisplay('0')">0</button>
+
+        <button class="button" onclick="appendToDisplay('.')">.</button>
+    </div>
+</div>
+
+<script>
+    let displayValue = '0';
+
+    function clearDisplay() {
+        displayValue = '0';
+        document.getElementById('display').innerText = displayValue;
+    }
+
+    function appendToDisplay(value) {
+        if (displayValue === '0' && value !== '.') {
+            displayValue = value;
+        } else {
+            displayValue += value;
+        }
+        document.getElementById('display').innerText = displayValue;
+    }
+
+    function calculate() {
+        try {
+            displayValue = eval(displayValue).toString();
+            document.getElementById('display').innerText = displayValue;
+        } catch (error) {
+            displayValue = 'خطأ';
+            document.getElementById('display').innerText = displayValue;
+        }
+    }
+</script>
+
+</body>
+</html>
